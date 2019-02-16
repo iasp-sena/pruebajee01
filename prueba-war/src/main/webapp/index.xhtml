@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:form prependId="false">
+        <h:outputLabel value="#{pruebaController.dato}"/>
+        <h:dataTable value="#{pruebaController.personas}" var="p">
+            <h:column><f:facet name="header">ID</f:facet>#{p.id}</h:column>
+            <h:column><f:facet name="header">NOMBRES</f:facet>#{p.nombres}</h:column>
+            <h:column><f:facet name="header">APELLIDOS</f:facet>#{p.apellidos}</h:column>
+            <h:column>
+                <f:facet name="header">OPCIONES</f:facet>
+                <h:commandLink action="#{pruebaController.consularPersonaPorId(p.id)}" value="Ver">
+                    <f:ajax render="infoPersona"/>
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+        <h:commandButton value="Buscar aleatorio..." action="#{pruebaController.consularPersonaRandom}">
+            <f:ajax render="infoPersona"/>
+        </h:commandButton>
+    </h:form>
+    <h:panelGroup id="infoPersona">
+        <h:panelGroup id="datos" rendered="#{pruebaController.persona ne null}">
+            <h:outputLabel value="Id: "/><h:outputText value="#{pruebaController.persona.id}"/>
+            <h:outputLabel value="Nombre: "/><h:outputText value="#{pruebaController.persona.nombres}"/>
+            <h:outputLabel value="Apellidos: "/><h:outputText value="#{pruebaController.persona.apellidos}"/>
+            <h:outputLabel value="Documento: "/><h:outputText value="#{pruebaController.persona.documento}"/>
+        </h:panelGroup>
+    </h:panelGroup>
+</f:view>
+
+</html>
